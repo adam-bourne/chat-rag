@@ -8,5 +8,7 @@ RERANKER_MODEL = "rerank-english-v3.0"
 DB_NAME = "my_db"
 TABLE_NAME = "financial_docs"
 
-CHAT_MODE = False
+LANGCHAIN_PROJECT = "FINANCIAL_RAG"
+
+CHAT_MODE = True
 LLM_MODEL = "gpt-4o-mini"
