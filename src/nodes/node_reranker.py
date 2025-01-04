@@ -17,20 +17,20 @@ def reranker_node(state: State) -> State:
         {"text": result['text'], "id": result['id']} for result in retrieved_docs
     ]
 
-    ranked_results = cohere_client.rerank(
+    reranked_results = cohere_client.rerank(
         model=RERANKER_MODEL,
         query=question,
         documents=unranked_results,
         top_n=RERANKER_TOP_N,
     )
 
-    ranked_docs = []
-    for result in ranked_results.results:
+    reranked_docs = []
+    for result in reranked_results.results:
         idx = result.index
         doc = unranked_results[idx]
-        ranked_docs.append({
+        reranked_docs.append({
             "text": doc["text"],
             "id": doc["id"],
         })
 
-    return {"ranked_docs": ranked_docs}
+    return {"reranked_docs": reranked_docs}

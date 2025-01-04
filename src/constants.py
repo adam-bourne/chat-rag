@@ -11,4 +11,4 @@ TABLE_NAME = "financial_docs"
 LANGCHAIN_PROJECT = "FINANCIAL_RAG"
 
 CHAT_MODE = True
-LLM_MODEL = "gpt-4o-mini"
+LLM_MODEL = "gpt-4o"

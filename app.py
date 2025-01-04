@@ -3,12 +3,12 @@ load_dotenv()
 
 import streamlit as st
 from src.agents import RAGAgent
-from src.constants import CHAT_MODE
+from src.constants import CHAT_MODE, METADATA_FILTERING
 
 def initialize_session_state():
     """Initialize session state variables"""
     if "agent" not in st.session_state:
-        st.session_state.agent = RAGAgent(chat=CHAT_MODE)
+        st.session_state.agent = RAGAgent(chat=CHAT_MODE, metadata_filter=METADATA_FILTERING)
     if "messages" not in st.session_state:
         st.session_state.messages = []
 

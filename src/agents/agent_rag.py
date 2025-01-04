@@ -14,8 +14,9 @@ from src.routing import route_doc_assistant
 class RAGAgent:
     """Manages the graph which performs RAG"""
 
-    def __init__(self, chat: bool = False):
+    def __init__(self, chat: bool = False, metadata_filtering: bool = False):
         self.chat = chat
+        self.metadata_filtering = metadata_filtering
         self.thread = {"configurable": {"thread_id": "1"}} # for retrieving state 
         self.memory = SqliteSaver.from_conn_string(":memory:")
         self.graph = self.init_graph()
@@ -60,13 +61,16 @@ class RAGAgent:
         inputs = {
             "question": question,
             "messages": messages, 
-            "chat": self.chat
+            "chat": self.chat,
+            "metadata_filtering": self.metadata_filtering
         }
 
         final_state = self.graph.invoke(inputs, self.thread)
 
         answer = final_state["messages"][-1].content
-        self.chat_history = final_state["messages"]
+
+        if self.chat:
+            self.chat_history = final_state["messages"]
 
         return answer
 

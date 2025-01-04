@@ -9,5 +9,4 @@ class AnswerRag(BaseModel):
     chain_of_thought: str = Field(
         description="The chain of thought used to arrive at the answer",
         min_length=1,
-        max_length=1000
     )

@@ -6,5 +6,6 @@ class State(TypedDict):
     messages: Annotated[Sequence[BaseMessage], operator.add]
     question: str
     chat: bool
+    metadata_filtering: bool
     retrieved_docs: List[dict]
-    ranked_docs: List[dict]
+    reranked_docs: List[dict]

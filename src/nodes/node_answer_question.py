@@ -13,10 +13,10 @@ def answer_question_node(state: State):
     """Node to answer the question using the rerieved and ranked documents"""
 
     question = state["question"]
-    ranked_docs = state["ranked_docs"]
+    reranked_docs = state["reranked_docs"]
 
     # Format the ranked documents
-    formatted_ranked_docs = format_ranked_docs(ranked_docs)
+    formatted_reranked_docs = format_ranked_docs(reranked_docs)
 
     # Create the chain
     answer_question_prompt_template = ChatPromptTemplate.from_messages([
@@ -24,7 +24,7 @@ def answer_question_node(state: State):
     ])
     answer_question_chain = answer_question_prompt_template | llm.with_structured_output(AnswerRag)
 
-    answer_rag = answer_question_chain.invoke({"question": question, "context": formatted_ranked_docs}).dict()
+    answer_rag = answer_question_chain.invoke({"question": question, "context": formatted_reranked_docs}).dict()
 
     # if in chat mode, this is a tool call, so need to return a tool message
     if state["chat"]:
