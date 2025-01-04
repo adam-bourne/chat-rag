@@ -3,7 +3,7 @@ import os
 
 import lancedb
 from langchain_openai import ChatOpenAI
-
+from gliner import GLiNER
 from src.constants import DB_NAME, LANGCHAIN_PROJECT
 
 # set up tracing on langsmith if using
@@ -13,6 +13,7 @@ if os.getenv("LANGCHAIN_API_KEY"):
     os.environ["LANGCHAIN_PROJECT"] = LANGCHAIN_PROJECT
 
 _db_table = None
+_ner_model = None
 
 def load_table(table_name: str):
     """Loads a LanceDB table, creating the connection only once"""
@@ -47,3 +48,11 @@ def get_llm(model: str, **kwargs) -> ChatOpenAI:
     )
 
     return llm
+
+def get_ner_model():
+    global _ner_model
+
+    if _ner_model is None:
+        _ner_model = GLiNER.from_pretrained("urchade/gliner_medium-v2.1")
+
+    return _ner_model
