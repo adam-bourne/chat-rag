@@ -3,7 +3,7 @@ import os
 import cohere
 
 from src.models.state import State
-from src.constants import RERANKER_MODEL, RERANKER_TOP_N
+from src.constants import RERANKER_MODEL, RERANKER_TOP_K
 
 cohere_client = cohere.Client(os.getenv("COHERE_API_KEY"))
 
@@ -21,7 +21,7 @@ def reranker_node(state: State) -> State:
         model=RERANKER_MODEL,
         query=question,
         documents=unranked_results,
-        top_n=RERANKER_TOP_N,
+        top_n=RERANKER_TOP_K,
     )
 
     reranked_docs = []
