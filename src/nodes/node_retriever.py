@@ -1,6 +1,6 @@
 from src.models.state import State
 from src.utils import load_table, get_ner_model
-from src.constants import TABLE_NAME, RETRIEVAL_TOP_N
+from src.constants import TABLE_NAME, RETRIEVAL_TOP_K
 
 def retriever_node(state: State) -> State:
     """Node to perform vector retrieval and full text search
@@ -11,7 +11,7 @@ def retriever_node(state: State) -> State:
 
     table = load_table(TABLE_NAME)
 
-    retrieved_docs = table.search(question, query_type="hybrid").limit(RETRIEVAL_TOP_N)
+    retrieved_docs = table.search(question, query_type="hybrid").limit(RETRIEVAL_TOP_K)
 
     if metadata_filtering:
         year_range = get_range(question)

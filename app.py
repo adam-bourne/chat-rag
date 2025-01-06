@@ -8,7 +8,7 @@ from src.constants import CHAT_MODE, METADATA_FILTERING
 def initialize_session_state():
     """Initialize session state variables"""
     if "agent" not in st.session_state:
-        st.session_state.agent = RAGAgent(chat=CHAT_MODE, metadata_filter=METADATA_FILTERING)
+        st.session_state.agent = RAGAgent(chat=CHAT_MODE, metadata_filtering=METADATA_FILTERING)
     if "messages" not in st.session_state:
         st.session_state.messages = []
 

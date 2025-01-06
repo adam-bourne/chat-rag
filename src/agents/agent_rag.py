@@ -46,7 +46,6 @@ class RAGAgent:
         workflow.add_edge("retriever_node", "reranker_node")
         workflow.add_edge("reranker_node", "answer_question_node")
 
-        #TRY WITOUT MEMORY ONCE COMPLETE AND SEE IF IT WORKS
         graph = workflow.compile(checkpointer=self.memory)
 
         return graph
@@ -55,12 +54,11 @@ class RAGAgent:
         """Manages the graph execution"""
 
         # Add question to chat history
-        messages = self.chat_history.copy()
-        messages.append(HumanMessage(content=question))
+        new_message = HumanMessage(content=question)
 
         inputs = {
             "question": question,
-            "messages": messages, 
+            "messages": [new_message], 
             "chat": self.chat,
             "metadata_filtering": self.metadata_filtering
         }
